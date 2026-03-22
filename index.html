@@ -174,6 +174,16 @@ a{color:var(--go);text-decoration:none}
 .p-final{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,8vw,44px);font-weight:300;line-height:1.25}
 .p-final em{font-style:italic;color:var(--go)}
 .p-heart{font-size:24px;margin-top:20px}
+.p-img{width:100%;max-width:340px;border-radius:14px;margin:0 auto 16px;overflow:hidden}
+.p-img img{width:100%;display:block;border-radius:14px}
+.p-img-full{width:100%;border-radius:14px;margin:0 auto 12px;position:relative;overflow:hidden}
+.p-img-full img{width:100%;display:block;border-radius:14px}
+.p-img-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,26,26,0.7),transparent 50%);display:flex;align-items:flex-end;padding:16px;border-radius:14px}
+.p-img-ov-t{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;font-style:italic;color:var(--go)}
+.p-img-row{display:grid;grid-template-columns:1fr 1fr;gap:4px;max-width:340px;margin:0 auto 12px}
+.p-img-row img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px}
+.p-logo-img{max-width:240px;margin:0 auto 16px}
+.p-logo-img img{width:100%;display:block}
 
 @media(min-width:768px){.hub,.screen,.pres{max-width:600px}.p-stats{grid-template-columns:repeat(4,1fr)}}
 </style>
@@ -367,20 +377,20 @@ function buildPresentation(){
     var d=ce('div','pres-slide'+(i===0?' active':''));
     d.id='pslide-'+i;
 
+    function addImg(parent,src,cls){var w=ce('div',cls||'p-img');var im=document.createElement('img');im.src=src;im.loading='lazy';im.alt='SPECTRA';w.appendChild(im);parent.appendChild(w);return w}
+
     if(sl.type==='hero'){
-      d.appendChild(ce('div','p-label','Ein Business. Eine Vision.'));
-      d.appendChild(ce('div','p-brand','SPECTRA'));
+      var logo=ce('div','p-logo-img');var li=document.createElement('img');li.src='img/spectra-logo-hero.png';li.alt='SPECTRA';logo.appendChild(li);d.appendChild(logo);
       d.appendChild(ce('div','p-line'));
       d.appendChild(ce('div','p-sub','Nail Studio by Kiara'));
     }
     else if(sl.type==='motto'){
-      d.appendChild(ce('div','p-motto','Still\nleuchten.'));
+      var mf=ce('div','p-img-full');var mi=document.createElement('img');mi.src='img/spectra-welcome.png';mi.alt='SPECTRA';mi.loading='lazy';mf.appendChild(mi);
+      var mov=ce('div','p-img-ov');mov.appendChild(ce('div','p-img-ov-t','Still leuchten.'));mf.appendChild(mov);d.appendChild(mf);
       d.appendChild(ce('div','p-text','Nicht laut. Nicht grell.\nSondern so, dass man es sp\u00FCrt.'));
     }
     else if(sl.type==='vision'){
-      var r=ce('div','p-ring');var ri=ce('div','p-ring-in');
-      ri.appendChild(ce('div','p-ring-n','1:1'));ri.appendChild(ce('div','p-ring-l','Privat'));
-      r.appendChild(ri);d.appendChild(r);
+      addImg(d,'img/spectra-feed-placeholder-1.png');
       d.appendChild(ce('div','p-label','Die Vision'));
       var t=ce('div','p-title');t.textContent='Kein Studio. Ein ';t.appendChild(ce('em','','Erlebnis.'));d.appendChild(t);
       d.appendChild(ce('div','p-text','Dein Ort zum Abschalten. Pers\u00F6nlich. Ruhig. Nur du und deine N\u00E4gel.'));
