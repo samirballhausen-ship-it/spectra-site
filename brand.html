@@ -159,6 +159,32 @@ body{padding-bottom:env(safe-area-inset-bottom,20px)}
 
 .ft{text-align:center;padding:24px 20px 20px;border-top:1px solid rgba(197,165,114,0.05);margin-top:20px}
 .ft p{font-family:'Cormorant Garamond',serif;font-size:11px;color:rgba(250,248,245,0.12);letter-spacing:2px}
+
+/* GALLERY */
+.gallery{display:flex;flex-direction:column;gap:16px}
+.gallery-item{border-radius:14px;overflow:hidden;position:relative}
+.gallery-item img{width:100%;display:block;border-radius:14px}
+.gallery-label{position:absolute;bottom:12px;left:12px;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:white;background:rgba(0,0,0,0.5);padding:4px 10px;border-radius:6px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.gallery-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.gallery-row img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px}
+.gallery-desc{font-size:11px;color:rgba(250,248,245,0.3);text-align:center;margin-top:4px;line-height:1.5}
+
+/* INSTAGRAM PREVIEW */
+.ig-preview{max-width:320px;margin:0 auto}
+.ig-header{display:flex;align-items:center;gap:10px;padding:12px 0}
+.ig-avatar{width:32px;height:32px;border-radius:50%;overflow:hidden}
+.ig-avatar img{width:100%;height:100%;object-fit:cover}
+.ig-name{font-size:12px;font-weight:500}
+.ig-handle{font-size:10px;color:rgba(250,248,245,0.3)}
+.ig-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px}
+.ig-grid img{width:100%;aspect-ratio:1;object-fit:cover}
+.ig-bio{padding:12px 0;font-size:11px;color:rgba(250,248,245,0.5);line-height:1.6}
+
+/* MOOD SECTION */
+.mood-hero{border-radius:14px;overflow:hidden;margin-bottom:16px;position:relative}
+.mood-hero img{width:100%;display:block}
+.mood-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,26,26,0.7),transparent 50%);display:flex;align-items:flex-end;padding:20px}
+.mood-text{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;font-style:italic;color:var(--go)}
 </style>
 </head>
 <body>
@@ -384,11 +410,83 @@ body{padding-bottom:env(safe-area-inset-bottom,20px)}
   </div>
 </div>
 
+<div class="sect" id="s-mood">
+  <div class="sect-label">07</div>
+  <div class="sect-title">Studio Mood</div>
+
+  <div class="mood-hero">
+    <img src="img/spectra-welcome.png" alt="SPECTRA Eingang" loading="lazy">
+    <div class="mood-overlay"><div class="mood-text">Still leuchten.</div></div>
+  </div>
+
+  <div class="gallery">
+    <div class="gallery-item">
+      <img src="img/spectra-studio-mood.png" alt="SPECTRA Studio" loading="lazy">
+      <div class="gallery-label">Studio Vision</div>
+    </div>
+    <div class="gallery-desc">So könnte dein fertiges Studio aussehen — Eiche, Akustikpaneele, warmes Licht, Pampasgras.</div>
+
+    <div class="gallery-item">
+      <img src="img/spectra-feed-placeholder-3.png" alt="Studio Detail" loading="lazy">
+      <div class="gallery-label">Studio Detail</div>
+    </div>
+    <div class="gallery-desc">Vanille-Kerze, Trockenblumen, Gold-Details — die Atmosphäre die Kundinnen lieben werden.</div>
+  </div>
+</div>
+
+<div class="sect" id="s-instagram">
+  <div class="sect-label">08</div>
+  <div class="sect-title">Instagram Preview</div>
+
+  <div class="ig-preview">
+    <div class="ig-header">
+      <div class="ig-avatar"><img src="img/spectra-monogram.png" alt="Avatar" loading="lazy"></div>
+      <div>
+        <div class="ig-name">SPECTRA | Nail Studio</div>
+        <div class="ig-handle">@spectra.nails.gg</div>
+      </div>
+    </div>
+    <div class="ig-bio">
+      &#x1F485; Gelnägel<br>
+      &#x1F393; zertifizierte Nail Designerin<br>
+      &#x1F4CD; Klein-Gerau | Home Studio<br>
+      &#x1F90D; Ästhetische Gelmodellagen in ruhiger Atmosphäre<br>
+      &#x2B07;&#xFE0F; Termin sichern
+    </div>
+    <div class="ig-grid">
+      <img src="img/spectra-feed-placeholder-1.png" alt="Feed 1" loading="lazy">
+      <img src="img/spectra-feed-placeholder-2.png" alt="Feed 2" loading="lazy">
+      <img src="img/spectra-feed-placeholder-3.png" alt="Feed 3" loading="lazy">
+      <img src="img/spectra-studio-mood.png" alt="Feed 4" loading="lazy">
+      <img src="img/spectra-welcome.png" alt="Feed 5" loading="lazy">
+      <img src="img/spectra-logo-hero.png" alt="Feed 6" loading="lazy">
+    </div>
+  </div>
+  <div class="gallery-desc" style="margin-top:16px">So könnte dein Instagram Feed aussehen — einheitlich, ästhetisch, premium.</div>
+</div>
+
+<div class="sect" id="s-stories">
+  <div class="sect-label">09</div>
+  <div class="sect-title">Story Backgrounds</div>
+
+  <div class="gallery-row">
+    <div class="gallery-item">
+      <img src="img/spectra-story-bg-1.png" alt="Story BG Light" loading="lazy" style="aspect-ratio:9/16;object-fit:cover">
+      <div class="gallery-label">Light</div>
+    </div>
+    <div class="gallery-item">
+      <img src="img/spectra-story-bg-2.png" alt="Story BG Dark" loading="lazy" style="aspect-ratio:9/16;object-fit:cover">
+      <div class="gallery-label">Dark</div>
+    </div>
+  </div>
+  <div class="gallery-desc" style="margin-top:12px">Speichere diese Bilder und nutze sie als Story-Hintergründe für Text, Umfragen und Ankündigungen.</div>
+</div>
+
 <div class="ft"><p>SPECTRA &mdash; Brand & Design Kit</p></div>
 
 <script>
-var tabs = ['logos','colors','typo','vk','preisliste','aftercare'];
-var labels = ['Logos','Farben','Typo','Visitenkarte','Preisliste','After-Care'];
+var tabs = ['logos','colors','typo','vk','preisliste','aftercare','mood','instagram','stories'];
+var labels = ['Logos','Farben','Typo','Visitenkarte','Preisliste','After-Care','Studio Mood','Instagram','Stories'];
 var nav = document.getElementById('snav');
 
 tabs.forEach(function(id, i) {
