@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1a1a1a">
+<title>SPECTRA — Brand & Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Sacramento&display=swap" rel="stylesheet">
+<style>
+:root{--w:#FAF8F5;--bg:#E8DDD3;--ro:#C9A9A6;--ch:#3A3A3A;--go:#C5A572;--dp:#1a1a1a;--cr:#F6F1EC}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{min-height:100%;font-family:'Inter',sans-serif;background:var(--dp);color:var(--w);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+body{padding-bottom:env(safe-area-inset-bottom,20px)}
+
+.top{padding:env(safe-area-inset-top,20px) 20px 0;text-align:center}
+.top-brand{font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:6px;text-transform:uppercase;color:var(--go);padding-top:20px}
+.top h1{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,7vw,36px);font-weight:300;margin:12px 0 6px}
+.top h1 em{font-style:italic;color:var(--go)}
+.top p{font-size:12px;color:rgba(250,248,245,0.3);line-height:1.6;max-width:300px;margin:0 auto 20px}
+.top a{color:var(--go);text-decoration:none;font-size:12px;letter-spacing:1px}
+
+/* SECTION NAV */
+.snav{display:flex;gap:6px;padding:12px 16px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.snav::-webkit-scrollbar{display:none}
+.snav button{
+  flex-shrink:0;padding:8px 16px;border-radius:20px;font-size:11px;letter-spacing:1px;
+  border:1px solid rgba(197,165,114,0.15);background:transparent;color:rgba(197,165,114,0.5);
+  font-family:'Inter',sans-serif;cursor:pointer;-webkit-appearance:none;transition:all 0.3s;white-space:nowrap;
+}
+.snav button.active{border-color:var(--go);color:var(--go);background:rgba(197,165,114,0.08)}
+
+.sect{display:none;padding:20px;max-width:500px;margin:0 auto}
+.sect.active{display:block}
+.sect-title{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5vw,26px);font-weight:300;text-align:center;margin-bottom:20px}
+.sect-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--go);text-align:center;margin-bottom:10px}
+
+/* LOGO SHOWCASE */
+.logo-card{
+  background:var(--w);border-radius:16px;padding:48px 24px;margin-bottom:16px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:200px;position:relative;
+}
+.logo-card.dark{background:var(--ch)}
+.logo-card.beige{background:var(--bg)}
+.logo-card.gold-grad{background:linear-gradient(135deg,var(--cr),var(--bg))}
+.logo-card-label{position:absolute;top:12px;left:16px;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(0,0,0,0.2)}
+.logo-card.dark .logo-card-label{color:rgba(255,255,255,0.2)}
+
+/* Logo Variant 1: Clean Wordmark */
+.logo-v1{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,10vw,52px);font-weight:300;letter-spacing:clamp(6px,2vw,14px);color:var(--ch);text-transform:uppercase}
+.logo-v1-sub{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--ro);margin-top:6px;font-weight:400}
+
+/* Logo Variant 2: Stacked with Line */
+.logo-v2-top{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,8vw,40px);font-weight:400;letter-spacing:clamp(8px,3vw,16px);color:var(--ch);text-transform:uppercase}
+.logo-v2-line{width:100%;max-width:180px;height:1px;background:var(--go);margin:10px auto}
+.logo-v2-bot{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--go);font-weight:500}
+.logo-card.dark .logo-v2-top{color:var(--w)}
+
+/* Logo Variant 3: Monogram + Text */
+.logo-v3-wrap{display:flex;align-items:center;gap:16px}
+.logo-v3-mono{
+  width:56px;height:56px;border:1px solid var(--go);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;
+  color:var(--go);letter-spacing:2px;
+}
+.logo-v3-text{text-align:left}
+.logo-v3-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;letter-spacing:6px;color:var(--ch);text-transform:uppercase}
+.logo-v3-tag{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--ro);margin-top:2px}
+.logo-card.dark .logo-v3-name{color:var(--w)}
+
+/* Logo Variant 4: Script Accent */
+.logo-v4-main{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,9vw,46px);font-weight:300;letter-spacing:clamp(6px,2vw,12px);color:var(--ch);text-transform:uppercase}
+.logo-v4-script{font-family:'Sacramento',cursive;font-size:clamp(18px,5vw,24px);color:var(--go);margin-top:-4px}
+.logo-card.dark .logo-v4-main{color:var(--w)}
+
+/* SUBMARK / ICON */
+.icon-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:16px 0}
+.icon-card{
+  width:80px;height:80px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;letter-spacing:2px;
+}
+.icon-card.a{background:var(--ch);color:var(--go)}
+.icon-card.b{background:var(--go);color:var(--dp)}
+.icon-card.c{background:var(--w);color:var(--ch);border:1px solid var(--bg)}
+.icon-card.d{background:linear-gradient(135deg,var(--ro),var(--go));color:white}
+
+/* FARBEN */
+.color-card{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.03);border:1px solid rgba(197,165,114,0.06);border-radius:12px;padding:14px 16px;margin-bottom:8px}
+.color-swatch{width:44px;height:44px;border-radius:10px;flex-shrink:0}
+.color-info{flex:1}
+.color-name{font-size:13px;font-weight:400}
+.color-hex{font-size:11px;color:rgba(250,248,245,0.35);font-family:monospace;margin-top:2px}
+.color-use{font-size:10px;color:rgba(250,248,245,0.25);margin-top:2px}
+
+/* TYPO */
+.typo-card{background:rgba(255,255,255,0.03);border:1px solid rgba(197,165,114,0.06);border-radius:12px;padding:20px;margin-bottom:12px}
+.typo-sample{margin-bottom:8px}
+.typo-meta{font-size:10px;color:rgba(250,248,245,0.3);line-height:1.5}
+
+/* VISITENKARTE */
+.vk-wrap{perspective:800px;margin:0 auto 20px;max-width:340px}
+.vk{
+  width:100%;aspect-ratio:1.75/1;border-radius:10px;padding:24px;
+  display:flex;flex-direction:column;justify-content:center;
+  position:relative;margin-bottom:12px;
+}
+.vk-front{background:var(--w)}
+.vk-back{background:var(--ch)}
+.vk-label{position:absolute;top:-20px;left:0;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,248,245,0.3)}
+.vk-front .vk-logo{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;letter-spacing:10px;color:var(--ch);text-transform:uppercase;margin-bottom:4px}
+.vk-front .vk-sub{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:var(--ro)}
+.vk-front .vk-line{width:30px;height:1px;background:var(--go);margin:12px 0}
+.vk-front .vk-name{font-size:11px;color:var(--ch);font-weight:400}
+.vk-front .vk-title{font-size:9px;color:var(--ro);margin-top:2px}
+.vk-back-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:auto}
+.vk-back .vk-logo-sm{font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:6px;color:var(--go);text-transform:uppercase}
+.vk-back .vk-motto{font-family:'Cormorant Garamond',serif;font-size:12px;font-style:italic;color:var(--go)}
+.vk-back .vk-details{margin-top:auto}
+.vk-back .vk-detail{font-size:9px;color:rgba(250,248,245,0.5);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.vk-back .vk-dot{width:3px;height:3px;border-radius:50%;background:var(--go);flex-shrink:0}
+.vk-back .vk-insta{font-size:10px;color:var(--go);font-weight:500;margin-top:8px}
+
+/* PREISLISTE */
+.pl-card{
+  background:var(--w);border-radius:14px;padding:28px 24px;margin-bottom:12px;
+  color:var(--ch);
+}
+.pl-head{text-align:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--bg)}
+.pl-head-brand{font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:6px;color:var(--go);text-transform:uppercase;margin-bottom:4px}
+.pl-head-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300}
+.pl-cat{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--go);margin:16px 0 10px;font-weight:500}
+.pl-item{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:1px dotted var(--bg)}
+.pl-item:last-child{border:none}
+.pl-item-name{font-size:13px;color:var(--ch);font-weight:400}
+.pl-item-price{font-size:13px;color:var(--go);font-weight:500;flex-shrink:0;margin-left:12px}
+.pl-item-sub{font-size:10px;color:var(--ro);margin-top:1px}
+.pl-note{font-size:10px;color:var(--ro);text-align:center;margin-top:16px;padding-top:12px;border-top:1px solid var(--bg);font-style:italic}
+
+/* AFTER CARE */
+.ac-card{
+  background:var(--w);border-radius:14px;padding:24px;margin-bottom:12px;
+  color:var(--ch);
+}
+.ac-head{text-align:center;margin-bottom:16px}
+.ac-brand{font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:5px;color:var(--go);text-transform:uppercase}
+.ac-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;margin-top:4px}
+.ac-section{margin-bottom:14px}
+.ac-section-title{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--go);margin-bottom:8px;font-weight:500}
+.ac-do,.ac-dont{display:flex;align-items:flex-start;gap:8px;padding:4px 0;font-size:12px;line-height:1.5}
+.ac-do{color:#5a7a5a}
+.ac-dont{color:var(--ro)}
+.ac-icon{flex-shrink:0;font-size:14px;margin-top:1px}
+.ac-footer{text-align:center;padding-top:12px;border-top:1px solid var(--bg);margin-top:12px}
+.ac-footer-text{font-size:10px;color:var(--ro);line-height:1.5}
+.ac-footer-insta{font-size:11px;color:var(--go);font-weight:500;margin-top:4px}
+
+.ft{text-align:center;padding:24px 20px 20px;border-top:1px solid rgba(197,165,114,0.05);margin-top:20px}
+.ft p{font-family:'Cormorant Garamond',serif;font-size:11px;color:rgba(250,248,245,0.12);letter-spacing:2px}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="top-brand">SPECTRA</div>
+  <h1>Brand &<br><em>Design</em></h1>
+  <p>Deine komplette visuelle Identität. Tippe auf die Tabs um durch die Bereiche zu navigieren.</p>
+  <a href="index.html">&larr; Zurück zum Navigator</a>
+</div>
+
+<div class="snav" id="snav"></div>
+
+<div class="sect active" id="s-logos">
+  <div class="sect-label">01</div>
+  <div class="sect-title">Logo-Konzepte</div>
+
+  <div class="logo-card gold-grad">
+    <div class="logo-card-label">Variante 1 — Clean Wordmark</div>
+    <div class="logo-v1">SPECTRA</div>
+    <div class="logo-v1-sub">Nail Studio</div>
+  </div>
+
+  <div class="logo-card dark">
+    <div class="logo-card-label">Variante 1 — Dark</div>
+    <div class="logo-v1" style="color:var(--w)">SPECTRA</div>
+    <div class="logo-v1-sub">Nail Studio</div>
+  </div>
+
+  <div class="logo-card">
+    <div class="logo-card-label">Variante 2 — Stacked</div>
+    <div class="logo-v2-top">SPECTRA</div>
+    <div class="logo-v2-line"></div>
+    <div class="logo-v2-bot">Nail Studio &middot; Klein-Gerau</div>
+  </div>
+
+  <div class="logo-card dark">
+    <div class="logo-card-label">Variante 2 — Dark</div>
+    <div class="logo-v2-top" style="color:var(--w)">SPECTRA</div>
+    <div class="logo-v2-line"></div>
+    <div class="logo-v2-bot">Nail Studio &middot; Klein-Gerau</div>
+  </div>
+
+  <div class="logo-card beige">
+    <div class="logo-card-label">Variante 3 — Monogram</div>
+    <div class="logo-v3-wrap">
+      <div class="logo-v3-mono">S</div>
+      <div class="logo-v3-text">
+        <div class="logo-v3-name">SPECTRA</div>
+        <div class="logo-v3-tag">Nail Studio</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="logo-card dark">
+    <div class="logo-card-label">Variante 3 — Dark</div>
+    <div class="logo-v3-wrap">
+      <div class="logo-v3-mono">S</div>
+      <div class="logo-v3-text">
+        <div class="logo-v3-name" style="color:var(--w)">SPECTRA</div>
+        <div class="logo-v3-tag">Nail Studio</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="logo-card gold-grad">
+    <div class="logo-card-label">Variante 4 — Script Accent</div>
+    <div class="logo-v4-main">SPECTRA</div>
+    <div class="logo-v4-script">still leuchten</div>
+  </div>
+
+  <div class="sect-label" style="margin-top:24px">Submarks / Icons</div>
+  <div class="icon-row">
+    <div class="icon-card a">S</div>
+    <div class="icon-card b">S</div>
+    <div class="icon-card c">S</div>
+    <div class="icon-card d">S</div>
+  </div>
+</div>
+
+<div class="sect" id="s-colors">
+  <div class="sect-label">02</div>
+  <div class="sect-title">Farbpalette</div>
+
+  <div class="color-card"><div class="color-swatch" style="background:#FAF8F5;border:1px solid #E8DDD3"></div><div class="color-info"><div class="color-name">Soft White</div><div class="color-hex">#FAF8F5</div><div class="color-use">Hintergründe, Clean Space</div></div></div>
+  <div class="color-card"><div class="color-swatch" style="background:#E8DDD3"></div><div class="color-info"><div class="color-name">Warm Beige</div><div class="color-hex">#E8DDD3</div><div class="color-use">Akzente, Untergründe</div></div></div>
+  <div class="color-card"><div class="color-swatch" style="background:#C9A9A6"></div><div class="color-info"><div class="color-name">Dusty Rose</div><div class="color-hex">#C9A9A6</div><div class="color-use">Highlight, CTAs</div></div></div>
+  <div class="color-card"><div class="color-swatch" style="background:#C5A572"></div><div class="color-info"><div class="color-name">Soft Gold</div><div class="color-hex">#C5A572</div><div class="color-use">Premium-Akzente, Logo</div></div></div>
+  <div class="color-card"><div class="color-swatch" style="background:#3A3A3A"></div><div class="color-info"><div class="color-name">Charcoal</div><div class="color-hex">#3A3A3A</div><div class="color-use">Text, Kontrast</div></div></div>
+</div>
+
+<div class="sect" id="s-typo">
+  <div class="sect-label">03</div>
+  <div class="sect-title">Typografie</div>
+
+  <div class="typo-card">
+    <div class="typo-sample" style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--w)">Cormorant Garamond</div>
+    <div class="typo-sample" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;font-style:italic;color:var(--go)">Still leuchten.</div>
+    <div class="typo-meta">Überschriften, Logo, Preise, Zitate<br>Light 300 / Regular 400 / Italic</div>
+  </div>
+  <div class="typo-card">
+    <div class="typo-sample" style="font-family:'Inter',sans-serif;font-size:16px;font-weight:300;color:var(--w)">Inter — Clean und modern</div>
+    <div class="typo-sample" style="font-family:'Inter',sans-serif;font-size:13px;font-weight:300;color:rgba(250,248,245,0.5)">Dein Ort zum Abschalten. Persönlich. Ruhig.</div>
+    <div class="typo-meta">Fließtext, Beschreibungen, UI<br>Light 300 / Regular 400 / Medium 500</div>
+  </div>
+  <div class="typo-card">
+    <div class="typo-sample" style="font-family:'Sacramento',cursive;font-size:28px;color:var(--go)">still leuchten</div>
+    <div class="typo-meta">Nur als Akzent — Zitate, persönliche Notes<br>Sparsam verwenden!</div>
+  </div>
+</div>
+
+<div class="sect" id="s-vk">
+  <div class="sect-label">04</div>
+  <div class="sect-title">Visitenkarte</div>
+
+  <div class="vk-wrap">
+    <div class="vk-label">Vorderseite</div>
+    <div class="vk vk-front" style="align-items:center;text-align:center">
+      <div class="vk-logo">SPECTRA</div>
+      <div class="vk-sub">Nail Studio</div>
+      <div class="vk-line"></div>
+      <div class="vk-name">Kiara Stöwer</div>
+      <div class="vk-title">Nail Designerin</div>
+    </div>
+  </div>
+
+  <div class="vk-wrap">
+    <div class="vk-label">Rückseite</div>
+    <div class="vk vk-back" style="justify-content:space-between">
+      <div class="vk-back-top">
+        <div class="vk-logo-sm">SPECTRA</div>
+        <div class="vk-motto">Still leuchten.</div>
+      </div>
+      <div class="vk-details">
+        <div class="vk-detail"><div class="vk-dot"></div>Klein-Gerau</div>
+        <div class="vk-detail"><div class="vk-dot"></div>Termine nur nach Buchung</div>
+        <div class="vk-detail"><div class="vk-dot"></div>Gel-Modellage &middot; Nail Design</div>
+        <div class="vk-insta">@spectra.nails.gg</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sect" id="s-preisliste">
+  <div class="sect-label">05</div>
+  <div class="sect-title">Preisliste</div>
+
+  <div class="pl-card">
+    <div class="pl-head">
+      <div class="pl-head-brand">SPECTRA</div>
+      <div class="pl-head-title">Leistungen & Preise</div>
+    </div>
+
+    <div class="pl-cat">Gel Modellage</div>
+    <div class="pl-item"><div><div class="pl-item-name">Neumodellage</div></div><div class="pl-item-price">ab 40 &euro;</div></div>
+    <div class="pl-item"><div><div class="pl-item-name">Neumodellage mit French</div></div><div class="pl-item-price">ab 47 &euro;</div></div>
+    <div class="pl-item"><div><div class="pl-item-name">Auffüllung</div></div><div class="pl-item-price">ab 30 &euro;</div></div>
+    <div class="pl-item"><div><div class="pl-item-name">Auffüllung mit French</div></div><div class="pl-item-price">ab 37 &euro;</div></div>
+
+    <div class="pl-cat">Natural Beauty</div>
+    <div class="pl-item"><div><div class="pl-item-name">Maniküre klassisch</div></div><div class="pl-item-price">22 &euro;</div></div>
+    <div class="pl-item"><div><div class="pl-item-name">Maniküre + Gel-Lack</div></div><div class="pl-item-price">28 &euro;</div></div>
+    <div class="pl-item"><div><div class="pl-item-name">Naturnagelverstärkung</div></div><div class="pl-item-price">32 &euro;</div></div>
+
+    <div class="pl-cat">Specials</div>
+    <div class="pl-item"><div><div class="pl-item-name">SPECTRA Bridal Paket</div><div class="pl-item-sub">Beratung + Probe + Hochzeit</div></div><div class="pl-item-price">115 &euro;</div></div>
+    <div class="pl-item"><div><div class="pl-item-name">Nails with Friends</div><div class="pl-item-sub">pro Person, bis 4 Personen</div></div><div class="pl-item-price">38 &euro;</div></div>
+
+    <div class="pl-cat">Extras</div>
+    <div class="pl-item"><div><div class="pl-item-name">Ombré / Fade</div></div><div class="pl-item-price">+8 &euro;</div></div>
+    <div class="pl-item"><div><div class="pl-item-name">Chrome / Mirror</div></div><div class="pl-item-price">+10 &euro;</div></div>
+    <div class="pl-item"><div><div class="pl-item-name">Nail Art einfach</div></div><div class="pl-item-price">+8 &euro;</div></div>
+    <div class="pl-item"><div><div class="pl-item-name">Nail Art aufwändig</div></div><div class="pl-item-price">+15 &euro;</div></div>
+    <div class="pl-item"><div><div class="pl-item-name">Extra-Länge</div></div><div class="pl-item-price">+5 &euro;</div></div>
+    <div class="pl-item"><div><div class="pl-item-name">Reparatur (1-2 Nägel)</div></div><div class="pl-item-price">8 &euro;</div></div>
+
+    <div class="pl-note">Preise sind Einstiegspreise (Phase 1). Alle Termine nur nach Buchung.</div>
+  </div>
+</div>
+
+<div class="sect" id="s-aftercare">
+  <div class="sect-label">06</div>
+  <div class="sect-title">After-Care Karte</div>
+
+  <div class="ac-card">
+    <div class="ac-head">
+      <div class="ac-brand">SPECTRA</div>
+      <div class="ac-title">Pflege deiner Nägel</div>
+    </div>
+
+    <div class="ac-section">
+      <div class="ac-section-title">Die ersten 24 Stunden</div>
+      <div class="ac-do"><div class="ac-icon">&check;</div>Hände vorsichtig behandeln</div>
+      <div class="ac-do"><div class="ac-icon">&check;</div>Heißes Wasser vermeiden</div>
+      <div class="ac-do"><div class="ac-icon">&check;</div>Keine schweren Arbeiten mit den Händen</div>
+    </div>
+
+    <div class="ac-section">
+      <div class="ac-section-title">Für maximale Haltbarkeit</div>
+      <div class="ac-do"><div class="ac-icon">&check;</div>Regelmäßig Nagelöl verwenden</div>
+      <div class="ac-do"><div class="ac-icon">&check;</div>Handschuhe bei Putzmitteln tragen</div>
+      <div class="ac-do"><div class="ac-icon">&check;</div>Auffüllung alle 3-4 Wochen</div>
+    </div>
+
+    <div class="ac-section">
+      <div class="ac-section-title">Bitte vermeiden</div>
+      <div class="ac-dont"><div class="ac-icon">&times;</div>Nägel als Werkzeug benutzen</div>
+      <div class="ac-dont"><div class="ac-icon">&times;</div>An den Nägeln knibbeln oder hebeln</div>
+      <div class="ac-dont"><div class="ac-icon">&times;</div>Selbst abreißen oder abmachen</div>
+      <div class="ac-dont"><div class="ac-icon">&times;</div>Aceton-Nagellackentferner verwenden</div>
+    </div>
+
+    <div class="ac-section">
+      <div class="ac-section-title">Nagel gebrochen?</div>
+      <div class="ac-do"><div class="ac-icon">&rarr;</div>Innerhalb von 3 Tagen: kostenlose Reparatur</div>
+      <div class="ac-do"><div class="ac-icon">&rarr;</div>Schreib mir einfach eine Nachricht!</div>
+    </div>
+
+    <div class="ac-footer">
+      <div class="ac-footer-text">Danke dass du bei SPECTRA warst.<br>Ich freu mich auf deinen nächsten Besuch!</div>
+      <div class="ac-footer-insta">@spectra.nails.gg</div>
+    </div>
+  </div>
+</div>
+
+<div class="ft"><p>SPECTRA &mdash; Brand & Design Kit</p></div>
+
+<script>
+var tabs = ['logos','colors','typo','vk','preisliste','aftercare'];
+var labels = ['Logos','Farben','Typo','Visitenkarte','Preisliste','After-Care'];
+var nav = document.getElementById('snav');
+
+tabs.forEach(function(id, i) {
+  var btn = document.createElement('button');
+  btn.textContent = labels[i];
+  if (i === 0) btn.className = 'active';
+  btn.addEventListener('click', function() {
+    tabs.forEach(function(tid) { document.getElementById('s-' + tid).className = 'sect'; });
+    document.getElementById('s-' + id).className = 'sect active';
+    nav.querySelectorAll('button').forEach(function(b) { b.className = ''; });
+    btn.className = 'active';
+    window.scrollTo(0, 0);
+  });
+  nav.appendChild(btn);
+});
+</script>
+</body>
+</html>
