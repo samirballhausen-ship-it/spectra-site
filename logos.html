@@ -78,7 +78,7 @@ body{padding:env(safe-area-inset-top,20px) 16px env(safe-area-inset-bottom,20px)
 <div class="top">
   <div class="top-brand">SPECTRA</div>
   <h1>Logo<br><em>Exploration</em></h1>
-  <p>17 Konzepte — tippe auf die Logos die dir gefallen. Deine Favoriten werden unten gesammelt.</p>
+  <p>29 Konzepte — tippe auf die Logos die dir gefallen. Deine Favoriten werden unten gesammelt.</p>
   <a href="brand.html">&larr; Zurück zum Brand Kit</a>
 </div>
 
@@ -96,22 +96,36 @@ body{padding:env(safe-area-inset-top,20px) 16px env(safe-area-inset-bottom,20px)
 
 <script>
 var LOGOS = [
-  {file:'logo-01-wordmark-serif', name:'Clean Wordmark (Serif)'},
-  {file:'logo-02-wordmark-modern', name:'Modern Wordmark (Sans)'},
-  {file:'logo-03-stacked-elegant', name:'Stacked Elegant'},
-  {file:'logo-04-diamond-mark', name:'Diamond Mark'},
-  {file:'logo-05-line-art', name:'Line Art'},
-  {file:'logo-06-split-line', name:'Split Line'},
-  {file:'logo-07-arch', name:'Arch'},
-  {file:'logo-08-bracket', name:'Bracket Frame'},
-  {file:'logo-09-double-line', name:'Double Line'},
-  {file:'logo-10-icon-crystal', name:'Crystal / Prism Icon'},
-  {file:'logo-11-dots', name:'Decorative Dots'},
-  {file:'logo-12-gradient-text', name:'Gradient Text'},
-  {file:'logo-13-vertical', name:'Vertical Layout'},
-  {file:'logo-14-nail-subtle', name:'Subtle Nail Shape'},
-  {file:'logo-15-light-rays', name:'Light Rays'},
-  {file:'logo-16-badge', name:'Badge / Emblem'},
+  // V2: Inspired by Kiara's vision (holographic, gel texture, feminine)
+  {file:'v2-01-gel-wave', name:'Gel Wave (iridescent)', dir:'logos-v2'},
+  {file:'v2-02-chrome-text', name:'Chrome Holographic Text', dir:'logos-v2'},
+  {file:'v2-03-script-elegant', name:'Script + Prism Light', dir:'logos-v2'},
+  {file:'v2-04-bottle-minimal', name:'Bottle + Flowing S', dir:'logos-v2'},
+  {file:'v2-05-3d-glossy', name:'3D Glossy Gel Letters', dir:'logos-v2'},
+  {file:'v2-06-hands-modern', name:'Hands Line Art', dir:'logos-v2'},
+  {file:'v2-07-drop-crystal', name:'Crystal Teardrop', dir:'logos-v2'},
+  {file:'v2-08-spectrum-line', name:'Spectrum Gradient Line', dir:'logos-v2'},
+  {file:'v2-09-s-glossy', name:'Glossy S Mark', dir:'logos-v2'},
+  {file:'v2-10-nail-silhouette', name:'Nail Silhouette', dir:'logos-v2'},
+  {file:'v2-11-soft-wave-wordmark', name:'Soft Wave Wordmark', dir:'logos-v2'},
+  {file:'v2-12-prism-light', name:'Prism Light', dir:'logos-v2'},
+  // V1: Classic minimal
+  {file:'logo-01-wordmark-serif', name:'Clean Wordmark (Serif)', dir:'logos'},
+  {file:'logo-02-wordmark-modern', name:'Modern Wordmark (Sans)', dir:'logos'},
+  {file:'logo-03-stacked-elegant', name:'Stacked Elegant', dir:'logos'},
+  {file:'logo-04-diamond-mark', name:'Diamond Mark', dir:'logos'},
+  {file:'logo-05-line-art', name:'Line Art', dir:'logos'},
+  {file:'logo-06-split-line', name:'Split Line', dir:'logos'},
+  {file:'logo-07-arch', name:'Arch', dir:'logos'},
+  {file:'logo-08-bracket', name:'Bracket Frame', dir:'logos'},
+  {file:'logo-09-double-line', name:'Double Line', dir:'logos'},
+  {file:'logo-10-icon-crystal', name:'Crystal / Prism Icon', dir:'logos'},
+  {file:'logo-11-dots', name:'Decorative Dots', dir:'logos'},
+  {file:'logo-12-gradient-text', name:'Gradient Text', dir:'logos'},
+  {file:'logo-13-vertical', name:'Vertical Layout', dir:'logos'},
+  {file:'logo-14-nail-subtle', name:'Subtle Nail Shape', dir:'logos'},
+  {file:'logo-15-light-rays', name:'Light Rays', dir:'logos'},
+  {file:'logo-16-badge', name:'Badge / Emblem', dir:'logos'},
   {file:'logo-17-handwritten-accent', name:'Handwritten Accent'}
 ];
 
@@ -124,7 +138,7 @@ LOGOS.forEach(function(logo, i) {
   item.id = 'logo-' + i;
 
   var img = document.createElement('img');
-  img.src = 'img/logos/' + logo.file + '.png';
+  img.src = 'img/' + (logo.dir || 'logos') + '/' + logo.file + '.png';
   img.alt = logo.name;
   img.loading = 'lazy';
   item.appendChild(img);
