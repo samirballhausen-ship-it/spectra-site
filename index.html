@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1a1a1a">
+<title>SPECTRA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--w:#FAF8F5;--bg:#E8DDD3;--ro:#C9A9A6;--ch:#3A3A3A;--go:#C5A572;--dp:#1a1a1a;--gl:rgba(255,255,255,0.03)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{min-height:100%;min-height:-webkit-fill-available;font-family:'Inter',sans-serif;background:var(--dp);color:var(--w);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+a{color:var(--go);text-decoration:none}
+
+.hub{padding:env(safe-area-inset-top,20px) 20px 20px;text-align:center;max-width:500px;margin:0 auto}
+.hub-nav{display:flex;gap:12px;justify-content:center;margin:20px 0 28px}
+.hub-link{
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  padding:8px 16px;border:1px solid rgba(197,165,114,0.15);border-radius:20px;
+  color:rgba(197,165,114,0.5);cursor:pointer;-webkit-appearance:none;
+  background:transparent;font-family:'Inter',sans-serif;transition:all 0.3s;
+}
+.hub-link.active{border-color:var(--go);color:var(--go);background:rgba(197,165,114,0.08)}
+
+.brand{font-family:'Cormorant Garamond',serif;font-size:12px;letter-spacing:6px;text-transform:uppercase;color:var(--go);padding-top:24px}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,7vw,38px);font-weight:300;line-height:1.2;margin:16px 0 8px}
+.page-title em{font-style:italic;color:var(--go)}
+.page-sub{font-size:13px;color:rgba(250,248,245,0.3);line-height:1.7;max-width:320px;margin:0 auto 24px}
+
+/* SCREEN SYSTEM */
+.screen{display:none;padding:0 20px 40px;max-width:500px;margin:0 auto}
+.screen.active{display:block}
+
+/* BACK */
+.back{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:10px 18px;margin:0 0 20px;
+  background:rgba(197,165,114,0.06);border:1px solid rgba(197,165,114,0.1);
+  border-radius:10px;color:var(--go);font-size:12px;letter-spacing:1px;
+  cursor:pointer;font-family:'Inter',sans-serif;-webkit-appearance:none;
+  transition:all 0.3s;
+}
+
+/* CARDS */
+.cards{display:flex;flex-direction:column;gap:12px}
+.card{
+  background:var(--gl);border:1px solid rgba(197,165,114,0.08);
+  border-radius:14px;padding:20px;cursor:pointer;
+  -webkit-appearance:none;transition:all 0.3s;
+  display:flex;align-items:center;gap:14px;
+  text-align:left;width:100%;font-family:'Inter',sans-serif;
+  color:var(--w);position:relative;
+}
+.card:active{border-color:var(--go);background:rgba(197,165,114,0.04);transform:scale(0.98)}
+.card-ic{font-size:24px;width:44px;height:44px;border-radius:12px;background:rgba(197,165,114,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.card-body{flex:1;min-width:0}
+.card-t{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400}
+.card-tag{display:inline-block;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 7px;border-radius:8px;margin-top:4px;font-weight:500}
+.tag-now{background:rgba(197,165,114,0.15);color:var(--go)}
+.tag-soon{background:rgba(201,169,166,0.12);color:var(--ro)}
+.tag-later{background:rgba(250,248,245,0.06);color:rgba(250,248,245,0.3)}
+.tag-fun{background:rgba(181,196,177,0.12);color:#9AB897}
+.card-d{font-size:11px;color:rgba(250,248,245,0.3);margin-top:4px;line-height:1.5}
+.card-arr{color:rgba(197,165,114,0.2);font-size:18px;flex-shrink:0}
+
+/* DETAIL */
+.det-head{text-align:center;padding:0 0 24px}
+.det-ic{font-size:36px;margin-bottom:10px}
+.det-t{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,6vw,30px);font-weight:300;line-height:1.2}
+.det-sub{font-size:12px;color:rgba(250,248,245,0.35);margin-top:8px;line-height:1.6}
+.det-sec{margin-bottom:20px}
+.det-sec-t{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--go);margin-bottom:10px;font-weight:500}
+.det-items{display:flex;flex-direction:column;gap:6px}
+.det-item{display:flex;align-items:flex-start;gap:10px;background:var(--gl);border:1px solid rgba(197,165,114,0.05);border-radius:8px;padding:12px 14px}
+.det-dot{width:5px;height:5px;border-radius:50%;background:var(--go);flex-shrink:0;margin-top:6px}
+.det-txt{font-size:12px;color:rgba(250,248,245,0.45);line-height:1.5;flex:1}
+.det-cta{
+  display:block;width:100%;padding:16px;margin-top:20px;
+  background:linear-gradient(135deg,var(--go),var(--ro));
+  border:none;border-radius:12px;
+  font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:400;
+  color:var(--dp);cursor:pointer;text-align:center;letter-spacing:1px;
+  -webkit-appearance:none;transition:all 0.3s;
+}
+.det-cta:active{opacity:0.85;transform:scale(0.98)}
+
+/* RESULT */
+.res-emoji{font-size:44px;text-align:center;margin-bottom:12px}
+.res-t{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,6vw,30px);font-weight:300;text-align:center;line-height:1.2;margin-bottom:10px}
+.res-txt{font-size:12px;color:rgba(250,248,245,0.35);text-align:center;line-height:1.7;max-width:320px;margin:0 auto 20px}
+.res-box{background:var(--gl);border:1px solid rgba(197,165,114,0.08);border-radius:12px;padding:16px;margin-bottom:12px}
+.res-box-t{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--go);margin-bottom:8px}
+.res-box-i{font-size:12px;color:rgba(250,248,245,0.4);padding:3px 0;line-height:1.5}
+.res-note{font-size:11px;color:rgba(250,248,245,0.2);text-align:center;margin-top:16px;line-height:1.6;font-style:italic}
+.res-back{
+  display:block;width:100%;padding:14px;margin-top:16px;
+  background:rgba(197,165,114,0.08);border:1px solid rgba(197,165,114,0.15);
+  border-radius:12px;color:var(--go);font-size:14px;text-align:center;
+  cursor:pointer;font-family:'Inter',sans-serif;-webkit-appearance:none;
+  transition:all 0.3s;
+}
+
+/* ---- PRESENTATION STYLES ---- */
+.pres{padding:0 20px 40px;max-width:500px;margin:0 auto}
+.pres-slide{
+  display:none;min-height:70vh;
+  flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:20px 0;
+}
+.pres-slide.active{display:flex}
+.pres-nav{
+  display:flex;gap:12px;justify-content:center;
+  padding:20px;position:sticky;bottom:0;
+  background:linear-gradient(to top,var(--dp) 60%,transparent);
+}
+.pres-btn{
+  padding:12px 28px;border-radius:10px;font-size:13px;font-weight:500;
+  cursor:pointer;font-family:'Inter',sans-serif;-webkit-appearance:none;
+  transition:all 0.3s;border:none;
+}
+.pres-btn.prev{background:rgba(197,165,114,0.08);color:var(--go);border:1px solid rgba(197,165,114,0.15)}
+.pres-btn.next{background:linear-gradient(135deg,var(--go),var(--ro));color:var(--dp)}
+.pres-btn:active{transform:scale(0.95)}
+.pres-counter{font-size:10px;color:rgba(197,165,114,0.3);letter-spacing:2px;padding:8px 0 0;text-align:center}
+
+/* Pres elements */
+.p-brand{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,14vw,80px);font-weight:300;letter-spacing:clamp(4px,2vw,12px);background:linear-gradient(135deg,var(--w),var(--bg) 40%,var(--go));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.p-line{width:40px;height:1px;background:var(--go);margin:20px auto}
+.p-sub{font-size:12px;letter-spacing:4px;text-transform:uppercase;color:rgba(250,248,245,0.3)}
+.p-motto{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,11vw,64px);font-weight:300;font-style:italic;color:var(--go);line-height:1.15}
+.p-text{font-size:13px;color:rgba(250,248,245,0.4);line-height:1.8;max-width:320px;margin:0 auto}
+.p-ring{width:clamp(150px,40vw,220px);height:clamp(150px,40vw,220px);border-radius:50%;position:relative;margin:0 auto 24px}
+.p-ring::before{content:'';position:absolute;inset:-2px;border-radius:50%;background:conic-gradient(from 0deg,var(--go),var(--ro),var(--bg),var(--go));opacity:0.25;-webkit-animation:spin 12s linear infinite;animation:spin 12s linear infinite}
+@-webkit-keyframes spin{to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.p-ring-in{position:absolute;inset:2px;border-radius:50%;background:var(--dp);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.p-ring-n{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,8vw,48px);font-weight:300;color:var(--go);line-height:1}
+.p-ring-l{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,248,245,0.3);margin-top:4px}
+.p-label{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--go);margin-bottom:14px}
+.p-title{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,6vw,36px);font-weight:300;line-height:1.2;margin-bottom:12px}
+.p-title em{font-style:italic;color:var(--go)}
+.p-feats{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;max-width:300px;margin:16px auto 0;text-align:left}
+.p-feat{display:flex;align-items:center;gap:8px;font-size:11px;color:rgba(250,248,245,0.4)}
+.p-feat-dot{width:4px;height:4px;border-radius:50%;background:var(--go);flex-shrink:0}
+.p-stats{display:grid;grid-template-columns:1fr 1fr;gap:2px;width:100%;max-width:320px;margin:0 auto}
+.p-stat{background:rgba(255,255,255,0.03);border:1px solid rgba(197,165,114,0.06);padding:24px 12px;text-align:center}
+.p-stat-n{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,7vw,40px);font-weight:300;color:var(--go);line-height:1}
+.p-stat-u{font-size:11px;color:var(--ro)}
+.p-stat-l{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,248,245,0.2);margin-top:6px}
+.p-svcs{display:flex;flex-direction:column;gap:8px;width:100%;max-width:340px;margin:0 auto}
+.p-svc{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.02);border:1px solid rgba(197,165,114,0.06);padding:14px 16px;border-radius:2px;text-align:left}
+.p-svc-ic{font-size:18px;width:32px;text-align:center;flex-shrink:0}
+.p-svc-info{flex:1}
+.p-svc-nm{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--w)}
+.p-svc-sb{font-size:10px;color:rgba(250,248,245,0.25);margin-top:1px}
+.p-svc-pr{font-size:11px;color:var(--go);font-weight:500;flex-shrink:0}
+.p-swatches{display:flex;gap:3px;width:100%;max-width:300px;height:60px;margin:16px auto 0}
+.p-sw{flex:1;border-radius:2px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px}
+.p-sw span{font-size:7px;letter-spacing:1px;text-transform:uppercase;opacity:0.5}
+.p-tl{display:flex;flex-direction:column;gap:0;width:100%;max-width:280px;margin:0 auto;position:relative;text-align:left}
+.p-tl::before{content:'';position:absolute;top:0;bottom:0;left:11px;width:1px;background:linear-gradient(to bottom,transparent,var(--go),var(--go),transparent)}
+.p-tl-i{display:flex;align-items:flex-start;gap:16px;padding:10px 0}
+.p-tl-d{width:8px;height:8px;border-radius:50%;border:2px solid var(--go);background:var(--dp);flex-shrink:0;margin-top:3px;z-index:1}
+.p-tl-i.on .p-tl-d{background:var(--go)}
+.p-tl-m{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--go);font-weight:500}
+.p-tl-t{font-size:11px;color:rgba(250,248,245,0.3);margin-top:2px}
+.p-steps{display:flex;flex-direction:column;gap:16px;width:100%;max-width:280px;margin:16px auto 0;text-align:left}
+.p-step{display:flex;align-items:flex-start;gap:12px}
+.p-step-n{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--go);min-width:28px}
+.p-step-t{font-size:12px;color:rgba(250,248,245,0.4);line-height:1.5;padding-top:4px}
+.p-final{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,8vw,44px);font-weight:300;line-height:1.25}
+.p-final em{font-style:italic;color:var(--go)}
+.p-heart{font-size:24px;margin-top:20px}
+
+@media(min-width:768px){.hub,.screen,.pres{max-width:600px}.p-stats{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+
+<!-- HUB -->
+<div class="hub" id="hub">
+  <div class="brand">SPECTRA</div>
+  <div class="hub-nav">
+    <button class="hub-link active" id="navBtn1" onclick="showPage('navigator')">Navigator</button>
+    <button class="hub-link" id="navBtn2" onclick="showPage('presentation')">Dein Business</button>
+  </div>
+</div>
+
+<!-- ===== NAVIGATOR ===== -->
+<div class="screen active" id="page-navigator">
+  <div style="text-align:center;margin-bottom:24px">
+    <div class="page-title">Was bauen wir<br><em>als Nächstes?</em></div>
+    <div class="page-sub">Klick dich durch und finde heraus, welchen Bereich du angehen willst.</div>
+  </div>
+  <div class="cards" id="navCards"></div>
+</div>
+
+<div class="screen" id="page-detail"></div>
+<div class="screen" id="page-result"></div>
+
+<!-- ===== PRESENTATION ===== -->
+<div class="screen" id="page-presentation">
+  <div class="pres" id="presContainer"></div>
+  <div class="pres-nav" id="presNav">
+    <button class="pres-btn prev" id="presPrev" onclick="presGo(-1)">&larr; Zurück</button>
+    <button class="pres-btn next" id="presNext" onclick="presGo(1)">Weiter &rarr;</button>
+  </div>
+  <div class="pres-counter" id="presCounter"></div>
+</div>
+
+<div style="text-align:center;padding:24px 20px 40px;border-top:1px solid rgba(197,165,114,0.05);margin-top:20px">
+  <div style="font-family:'Cormorant Garamond',serif;font-size:12px;color:rgba(250,248,245,0.12);letter-spacing:2px">SPECTRA &mdash; Nail Studio by Kiara</div>
+</div>
+
+<script>
+// ===== NAVIGATOR DATA =====
+var ITEMS = [
+  {id:'digital',ic:'\uD83C\uDF10',t:'Online-Auftritt',tg:'now',tgT:'Jetzt',d:'Website, Buchung, digitale Pr\u00E4senz',
+   det:{sub:'Deine digitale Visitenkarte.',sec:[{t:'Was wir bauen',i:['SPECTRA Website \u2014 One-Page mit Buchung','Fresha Buchungssystem einrichten','Instagram Templates in Canva','WhatsApp Business aufsetzen','Google My Business Eintrag','Linkpage im SPECTRA-Design']},{t:'Warum jetzt?',i:['Website kann schon vor Launch fertig sein','Buchungssystem muss vorher stehen','Templates sparen sp\u00E4ter Zeit']}]},
+   res:{em:'\uD83C\uDF10',t:'Online-Auftritt',tx:'Super Wahl! Samir baut deinen kompletten Online-Auftritt.',b:[{t:'Samir soll starten mit:',i:['SPECTRA Website bauen','Fresha einrichten','Instagram Templates erstellen','WhatsApp Business aufsetzen']},{t:'Das brauchst du:',i:['Deine finalen Preise (haben wir!)','3-5 gute Fotos','Dein Logo']}],n:'Schick Samir einen Screenshot!'}},
+
+  {id:'brand',ic:'\u2728',t:'Brand & Design',tg:'now',tgT:'Jetzt',d:'Logo, Visitenkarten, Social Media Kit',
+   det:{sub:'Alles was SPECTRA visuell ausmacht.',sec:[{t:'Was wir designen',i:['SPECTRA Logo (Wortmarke + Icon)','Visitenkarten-Design','Preisliste als Carousel + Print','After-Care Karte','Instagram Highlight Covers','Story-Templates','Geschenk-Gutschein Design']},{t:'Warum jetzt?',i:['Logo ist die Basis f\u00FCr alles','Visitenkarten zum Soft-Launch','Templates machen Content 10x schneller']}]},
+   res:{em:'\u2728',t:'Brand & Design',tx:'Mega! Eine komplette visuelle Identit\u00E4t wie eine Luxus-Brand.',b:[{t:'Samir soll starten mit:',i:['Logo-Entw\u00FCrfe (3 Varianten)','Visitenkarten designen','Preisliste als Carousel','After-Care Karte']},{t:'Inspiration:',i:['@icynails4u, @klawsbysonia, @bystudiod','Modern-Minimal + Skandinavisch-Warm','Beige, Gold, Dusty Rose']}],n:'Brand Identity System liegt bereit!'}},
+
+  {id:'studio',ic:'\uD83C\uDFE0',t:'Studio einrichten',tg:'soon',tgT:'Bald',d:'Einkaufsliste, Raumplan, Deko',
+   det:{sub:'Dein Kellerraum wird zum SPECTRA-Universum.',sec:[{t:'Was wir planen',i:['Raumplan mit Zonen','IKEA + Amazon Einkaufsliste','Beleuchtungskonzept','Deko: Akustikpaneele, Gold-Details','Vinyl-Planken \u00FCber Fliesen','Moodboard erstellen']},{t:'Warum bald?',i:['Nach Schulung wei\u00DFt du besser was du brauchst','Planung jetzt = schneller einrichten im Sep','Budget-Plan hilft beim Sparen']}]},
+   res:{em:'\uD83C\uDFE0',t:'Studio einrichten',tx:'Wir machen deinen Keller zu einem Ort wo Kundinnen sagen: Wow.',b:[{t:'Samir soll starten mit:',i:['Einkaufsliste mit Links','Moodboard erstellen','Beleuchtungskonzept','Einrichtungs-Plan']},{t:'Budget:',i:['M\u00F6bel & Technik: ~800-1.000 EUR','Deko: ~300-400 EUR','Hygiene: ~150-200 EUR','Gesamt: ~1.400-1.600 EUR']}],n:'DIY-Nageltisch spart 300-500 EUR!'}},
+
+  {id:'content',ic:'\uD83C\uDFA5',t:'Content & Social',tg:'soon',tgT:'Bald',d:'Reels, Fotos, Content-Kalender',
+   det:{sub:'Content der SPECTRA strahlen l\u00E4sst.',sec:[{t:'Was wir vorbereiten',i:['20 Reel-Konzepte (ohne Stimme)','Foto-Setup Guide f\u00FCr Keller','Content-Kalender Monat 1','Caption-Templates','Hashtag-Sets','CapCut Tutorial f\u00FCr Samir']},{t:'Warum bald?',i:['Vorbereiten bevor Stress losgeht','Reel-Konzepte brauchen keine fertigen N\u00E4gel','Samir kann Schnitt \u00FCben']}]},
+   res:{em:'\uD83C\uDFA5',t:'Content & Social',tx:'Smart! Wenn du live gehst, hast du alles ready.',b:[{t:'Samir soll starten mit:',i:['20 Reel-Konzepte ausarbeiten','Foto-Setup planen','Content-Kalender erstellen','CapCut lernen']},{t:'Aufgabenteilung:',i:['Kiara: filmt beim Arbeiten','Samir: schneidet, textet, postet','Zusammen: Ideen brainstormen']}],n:'Reel-Ideen und Hashtag-Sets liegen bereit!'}},
+
+  {id:'legal',ic:'\uD83D\uDCCB',t:'Rechtliches',tg:'now',tgT:'Dringend',d:'Gewerbe, Telekom, Versicherung',
+   det:{sub:'Die To-Dos vor dem Start.',sec:[{t:'Was jetzt ansteht',i:['Telekom informieren (Brief fertig!)','Bebauungsplan pr\u00FCfen (B\u00FCttelborn)','Gewerbeanmeldung vorbereiten','Betriebshaftpflicht','Eltern-Vereinbarung','DSGVO Foto-Einwilligung','Impressum f\u00FCr Instagram']},{t:'Warum dringend?',i:['Telekom MUSS vor Gewerbeanmeldung','Bebauungsplan entscheidet \u00FCber Erlaubnis','Ohne Gewerbe = kein legaler Start']}]},
+   res:{em:'\uD83D\uDCCB',t:'Rechtliches kl\u00E4ren',tx:'Wichtig! Damit legst du das Fundament.',b:[{t:'Sofort erledigen:',i:['Telekom-Brief schicken','B\u00FCttelborn anrufen: 06152 178-0','Eltern-Vereinbarung unterschreiben']},{t:'Vor dem Launch:',i:['Gewerbeanmeldung einreichen','Haftpflicht (~80 EUR/Jahr)','Impressum auf Instagram','DSGVO Formular ausdrucken']}],n:'Alle Musterbriefe liegen bereit!'}},
+
+  {id:'pricing',ic:'\uD83D\uDCB0',t:'Preise & Services',tg:'soon',tgT:'Bald',d:'Preisliste, Pakete, Treueprogramm',
+   det:{sub:'Vom Entwurf zur finalen Preisliste.',sec:[{t:'Was wir finalisieren',i:['Preisliste mit L\u00E4ngen S/M/L','Extras-Men\u00FC','SPECTRA Bridal Paket','Nails with Friends Konzept','Stempelkarte','Empfehlungsprogramm']},{t:'Warum bald?',i:['Preise m\u00FCssen vor Launch stehen','Bridal-Paket ist ein USP','Treueprogramm bindet ab Tag 1']}]},
+   res:{em:'\uD83D\uDCB0',t:'Preise & Services',tx:'Klare Preise = keine awkwarden Momente.',b:[{t:'Samir soll starten mit:',i:['Preisliste finalisieren','Extras-Men\u00FC','Bridal Paket ausarbeiten','Stempelkarte designen']},{t:'Deine Preisstruktur:',i:['Launch: 40 EUR','3 Monate: 50 EUR','Ab Monat 7: 55 EUR','Bridal: 115 EUR']}],n:'Komplette Kalkulation liegt bereit!'}},
+
+  {id:'app',ic:'\uD83D\uDCF1',t:'SPECTRA App',tg:'later',tgT:'Zukunft',d:'Eigene App f\u00FCr Buchung & Portfolio',
+   det:{sub:'Eine eigene App \u2014 n\u00E4chstes Level.',sec:[{t:'Was die App k\u00F6nnte',i:['Online-Terminbuchung','Push-Erinnerungen','Digitale Stempelkarte','Portfolio-Galerie','After-Care Tipps','Design-Inspiration','Pers\u00F6nliches Kundenprofil']},{t:'Wann?',i:['Ab 20+ Stammkundinnen','Wenn du von Fresha wechselst','N\u00E4chstes Level Professionalisierung']}]},
+   res:{em:'\uD83D\uDCF1',t:'SPECTRA App',tx:'Ambitioniert! Kein anderes Home-Studio hat das.',b:[{t:'Samir soll planen:',i:['App-Konzept definieren','Design-Mockups','Technologie w\u00E4hlen','MVP bauen']},{t:'Killer-Features:',i:['Buchung mit einem Tap','Digitale Stempelkarte','Design-Galerie','Push-Reminder']}],n:'Samir kann das mit KI schneller bauen als du denkst!'}},
+
+  {id:'schulung',ic:'\uD83C\uDF93',t:'Schulungs-Business',tg:'later',tgT:'Zukunft',d:'Eigene Schulungen anbieten',
+   det:{sub:'Die Marktl\u00FCcke die du erkannt hast.',sec:[{t:'Was wir vorbereiten',i:['Schulungs-Konzept (2 Tage, 1:1)','Schulungsmappe designen','Zertifikat-Vorlage','Preiskalkulation','Landing Page','Instagram-Marketing']},{t:'Deine Vision:',i:['1:1 \u00FCber 2 Tage','Sch\u00F6ne Schulungsmappe','Tag 1: Theorie + eigene Hand','Tag 2: Modell + Designs','Zertifikat + Content-Fotos']}]},
+   res:{em:'\uD83C\uDF93',t:'Schulungs-Business',tx:'Du denkst gro\u00DF \u2014 SPECTRA Academy!',b:[{t:'Samir soll starten mit:',i:['Konzept ausarbeiten','Schulungsmappe designen','Zertifikat erstellen','Landing Page']},{t:'Zeitplan:',i:['Fr\u00FChestens 12 Monate nach Start','Preis: 400-600 EUR','2-4 Schulungen/Monat m\u00F6glich']}],n:'Du hast das super detailliert beschrieben!'}},
+
+  {id:'fun',ic:'\uD83C\uDFA8',t:'Kreativ-Projekte',tg:'fun',tgT:'Just for fun',d:'Moodboards, Designs, Farbkonzepte',
+   det:{sub:'Kreatives das Spa\u00DF macht.',sec:[{t:'Was wir kreieren',i:['Moodboard als Poster','Nail-Design Sammlung','Saisonale Farbpaletten','Signature Design entwickeln','3D-Rendering des Studios','SPECTRA Spotify Playlist']},{t:'Warum?',i:['Weil es Spa\u00DF macht','Weil Inspiration der Motor ist','Weil das Moodboard motiviert']}]},
+   res:{em:'\uD83C\uDFA8',t:'Kreativ-Projekte',tx:'Die sch\u00F6nsten Businesses entstehen mit Spa\u00DF.',b:[{t:'Pick one:',i:['Moodboard designen','Nail-Design Sammlung','Studio-Rendering','Spotify Playlist']},{t:'Signature Design Ideen:',i:['The SPECTRA Glaze (Chrome-Shimmer)','The Golden Thread (Gold-Linie)','The Clean Edge (Perfektion)']}],n:'Sag Samir welches Projekt dich anspricht!'}}
+];
+
+// ===== PRESENTATION DATA =====
+var PSLIDES = [
+  {type:'hero'},
+  {type:'motto'},
+  {type:'vision'},
+  {type:'features'},
+  {type:'stats'},
+  {type:'services'},
+  {type:'pricing'},
+  {type:'studio'},
+  {type:'colors'},
+  {type:'timeline'},
+  {type:'steps'},
+  {type:'final'}
+];
+
+// ===== BUILD FUNCTIONS =====
+function ce(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt)e.textContent=txt;return e}
+
+function buildNavCards(){
+  var c=document.getElementById('navCards');
+  while(c.firstChild)c.removeChild(c.firstChild);
+  ITEMS.forEach(function(item){
+    var card=ce('button','card');
+    var ic=ce('div','card-ic',item.ic);
+    var body=ce('div','card-body');
+    body.appendChild(ce('div','card-t',item.t));
+    var tag=ce('div','card-tag tag-'+item.tg,item.tgT);
+    body.appendChild(tag);
+    body.appendChild(ce('div','card-d',item.d));
+    card.appendChild(ic);
+    card.appendChild(body);
+    card.appendChild(ce('div','card-arr','\u203A'));
+    card.addEventListener('click',function(){showDetail(item)});
+    c.appendChild(card);
+  });
+}
+
+function showDetail(item){
+  hideAll();
+  var p=document.getElementById('page-detail');
+  while(p.firstChild)p.removeChild(p.firstChild);
+
+  var back=ce('button','back','\u2190 Zur\u00FCck');
+  back.addEventListener('click',function(){showPage('navigator')});
+  p.appendChild(back);
+
+  var h=ce('div','det-head');
+  h.appendChild(ce('div','det-ic',item.ic));
+  h.appendChild(ce('div','det-t',item.t));
+  h.appendChild(ce('div','det-sub',item.det.sub));
+  p.appendChild(h);
+
+  item.det.sec.forEach(function(sec){
+    var s=ce('div','det-sec');
+    s.appendChild(ce('div','det-sec-t',sec.t));
+    var items=ce('div','det-items');
+    sec.i.forEach(function(txt){
+      var di=ce('div','det-item');
+      di.appendChild(ce('div','det-dot'));
+      di.appendChild(ce('div','det-txt',txt));
+      items.appendChild(di);
+    });
+    s.appendChild(items);
+    p.appendChild(s);
+  });
+
+  var cta=ce('button','det-cta','Das will ich als N\u00E4chstes machen');
+  cta.addEventListener('click',function(){showResult(item)});
+  p.appendChild(cta);
+  p.className='screen active';
+  window.scrollTo(0,0);
+}
+
+function showResult(item){
+  hideAll();
+  var p=document.getElementById('page-result');
+  while(p.firstChild)p.removeChild(p.firstChild);
+
+  var back=ce('button','back','\u2190 Zur\u00FCck');
+  back.addEventListener('click',function(){showDetail(item)});
+  p.appendChild(back);
+
+  p.appendChild(ce('div','res-emoji',item.res.em));
+  p.appendChild(ce('div','res-t',item.res.t));
+  p.appendChild(ce('div','res-txt',item.res.tx));
+
+  item.res.b.forEach(function(box){
+    var b=ce('div','res-box');
+    b.appendChild(ce('div','res-box-t',box.t));
+    box.i.forEach(function(it){b.appendChild(ce('div','res-box-i','\u2022 '+it))});
+    p.appendChild(b);
+  });
+
+  p.appendChild(ce('div','res-note',item.res.n));
+
+  var rb=ce('button','res-back','\u2190 Andere Bereiche anschauen');
+  rb.addEventListener('click',function(){showPage('navigator')});
+  p.appendChild(rb);
+
+  p.className='screen active';
+  window.scrollTo(0,0);
+}
+
+// ===== PRESENTATION BUILD =====
+var presIdx=0;
+function buildPresentation(){
+  var c=document.getElementById('presContainer');
+  PSLIDES.forEach(function(sl,i){
+    var d=ce('div','pres-slide'+(i===0?' active':''));
+    d.id='pslide-'+i;
+
+    if(sl.type==='hero'){
+      d.appendChild(ce('div','p-label','Ein Business. Eine Vision.'));
+      d.appendChild(ce('div','p-brand','SPECTRA'));
+      d.appendChild(ce('div','p-line'));
+      d.appendChild(ce('div','p-sub','Nail Studio by Kiara'));
+    }
+    else if(sl.type==='motto'){
+      d.appendChild(ce('div','p-motto','Still\nleuchten.'));
+      d.appendChild(ce('div','p-text','Nicht laut. Nicht grell.\nSondern so, dass man es sp\u00FCrt.'));
+    }
+    else if(sl.type==='vision'){
+      var r=ce('div','p-ring');var ri=ce('div','p-ring-in');
+      ri.appendChild(ce('div','p-ring-n','1:1'));ri.appendChild(ce('div','p-ring-l','Privat'));
+      r.appendChild(ri);d.appendChild(r);
+      d.appendChild(ce('div','p-label','Die Vision'));
+      var t=ce('div','p-title');t.textContent='Kein Studio. Ein ';t.appendChild(ce('em','','Erlebnis.'));d.appendChild(t);
+      d.appendChild(ce('div','p-text','Dein Ort zum Abschalten. Pers\u00F6nlich. Ruhig. Nur du und deine N\u00E4gel.'));
+    }
+    else if(sl.type==='features'){
+      d.appendChild(ce('div','p-label','SPECTRA'));
+      var fg=ce('div','p-feats');
+      ['Eigener Raum','Nur mit Termin','Premium Produkte','Individuelle Designs','Hygiene-Fokus','Clean Aesthetic','Separater Eingang','Vanille & Musik'].forEach(function(f){
+        var fe=ce('div','p-feat');fe.appendChild(ce('div','p-feat-dot'));fe.appendChild(ce('span','',f));fg.appendChild(fe);
+      });
+      d.appendChild(fg);
+    }
+    else if(sl.type==='stats'){
+      d.appendChild(ce('div','p-label','Die Zahlen'));
+      var sg=ce('div','p-stats');
+      [{n:'40',u:'EUR',l:'Startpreis'},{n:'3',u:'Termine',l:'Break-Even'},{n:'14k',u:'EUR',l:'Gewinn Y1'},{n:'1.5k',u:'EUR',l:'Einrichtung'}].forEach(function(s){
+        var sc=ce('div','p-stat');sc.appendChild(ce('div','p-stat-n',s.n));sc.appendChild(ce('div','p-stat-u',s.u));sc.appendChild(ce('div','p-stat-l',s.l));sg.appendChild(sc);
+      });
+      d.appendChild(sg);
+    }
+    else if(sl.type==='services'){
+      d.appendChild(ce('div','p-label','Leistungen'));
+      var sv=ce('div','p-svcs');
+      [{ic:'\u2666',nm:'Gel Neumodellage',sb:'Professioneller Aufbau',pr:'40\u20AC'},{ic:'\u2726',nm:'Auff\u00FCllung',sb:'Alle 3-4 Wochen',pr:'30\u20AC'},{ic:'\u2605',nm:'Manik\u00FCre + Gel',sb:'Pflege & Farbe',pr:'28\u20AC'},{ic:'\u2661',nm:'SPECTRA Bridal',sb:'Beratung+Probe+Hochzeit',pr:'115\u20AC'},{ic:'\u2663',nm:'Nails with Friends',sb:'Bis zu 4 Personen',pr:'38\u20AC'}].forEach(function(s){
+        var sc=ce('div','p-svc');sc.appendChild(ce('div','p-svc-ic',s.ic));
+        var info=ce('div','p-svc-info');info.appendChild(ce('div','p-svc-nm',s.nm));info.appendChild(ce('div','p-svc-sb',s.sb));
+        sc.appendChild(info);sc.appendChild(ce('div','p-svc-pr',s.pr));sv.appendChild(sc);
+      });
+      d.appendChild(sv);
+    }
+    else if(sl.type==='pricing'){
+      d.appendChild(ce('div','p-label','Preisentwicklung'));
+      d.appendChild(ce('div','p-text','Launch 40\u20AC \u2192 Etablierung 50\u20AC \u2192 Premium 55\u20AC'));
+      d.appendChild(ce('div','p-title','Wachse mit deinem K\u00F6nnen'));
+    }
+    else if(sl.type==='studio'){
+      var r2=ce('div','p-ring');var ri2=ce('div','p-ring-in');
+      var rn=ce('div','p-ring-n');rn.style.fontSize='clamp(20px,5vw,32px)';rn.textContent='\u223C1.500';
+      ri2.appendChild(rn);ri2.appendChild(ce('div','p-ring-l','EUR Einrichtung'));r2.appendChild(ri2);d.appendChild(r2);
+      d.appendChild(ce('div','p-label','Dein Studio'));
+      d.appendChild(ce('div','p-text','12-15 m\u00B2 \u00B7 Eigener Eingang \u00B7 Tageslicht\nAkustikpaneele \u00B7 Vanille \u00B7 Gold'));
+    }
+    else if(sl.type==='colors'){
+      d.appendChild(ce('div','p-label','Die Farben'));
+      var sw=ce('div','p-swatches');
+      [{bg:'#FAF8F5',c:'#3A3A3A',n:'White'},{bg:'#E8DDD3',c:'#3A3A3A',n:'Beige'},{bg:'#C9A9A6',c:'#fff',n:'Rose'},{bg:'#C5A572',c:'#fff',n:'Gold'},{bg:'#3A3A3A',c:'#C5A572',n:'Dark'}].forEach(function(s){
+        var w=ce('div','p-sw');w.style.background=s.bg;var sp=ce('span','',s.n);sp.style.color=s.c;w.appendChild(sp);sw.appendChild(w);
+      });
+      d.appendChild(sw);
+      d.appendChild(ce('div','p-text','Warm. Ruhig. Hochwertig.\nJeder Touchpoint erz\u00E4hlt die gleiche Geschichte.'));
+    }
+    else if(sl.type==='timeline'){
+      d.appendChild(ce('div','p-label','Der Weg'));
+      var tl=ce('div','p-tl');
+      [{m:"Mai '26",t:'Gel-Schulung',on:true},{m:'Jun \u2014 Sep',t:'\u00DCben',on:false},{m:"Sep '26",t:'Studio einrichten',on:false},{m:"Okt '26",t:'Instagram Launch',on:false},{m:"Nov '26",t:'SPECTRA goes live \u2728',on:true},{m:'Dez+',t:'Wachstum',on:false}].forEach(function(s){
+        var ti=ce('div','p-tl-i'+(s.on?' on':''));ti.appendChild(ce('div','p-tl-d'));
+        var inf=ce('div','');inf.appendChild(ce('div','p-tl-m',s.m));inf.appendChild(ce('div','p-tl-t',s.t));ti.appendChild(inf);tl.appendChild(ti);
+      });
+      d.appendChild(tl);
+    }
+    else if(sl.type==='steps'){
+      d.appendChild(ce('div','p-label','N\u00E4chste Schritte'));
+      var st=ce('div','p-steps');
+      [{n:'01',t:'Telekom informieren\nBebauungsplan pr\u00FCfen'},{n:'02',t:'Gel-Schulung buchen\nAna Vatavu, Mainz'},{n:'03',t:'\u00DCben, wachsen\nund dann: leuchten.'}].forEach(function(s){
+        var se=ce('div','p-step');se.appendChild(ce('div','p-step-n',s.n));se.appendChild(ce('div','p-step-t',s.t));st.appendChild(se);
+      });
+      d.appendChild(st);
+    }
+    else if(sl.type==='final'){
+      var ft=ce('div','p-final');ft.textContent='Dein Business.\nDeine Regeln.\n';ft.appendChild(ce('em','','Dein Licht.'));d.appendChild(ft);
+      d.appendChild(ce('div','p-heart','\u2728'));
+      d.appendChild(ce('div','p-text','SPECTRA \u2014 Nail Studio by Kiara\nKlein-Gerau \u00B7 November 2026'));
+    }
+    c.appendChild(d);
+  });
+  updatePresCounter();
+}
+
+function presGo(dir){
+  var next=presIdx+dir;
+  if(next<0||next>=PSLIDES.length)return;
+  document.getElementById('pslide-'+presIdx).className='pres-slide';
+  presIdx=next;
+  document.getElementById('pslide-'+presIdx).className='pres-slide active';
+  updatePresCounter();
+  document.getElementById('presPrev').style.visibility=presIdx===0?'hidden':'visible';
+  document.getElementById('presNext').textContent=presIdx===PSLIDES.length-1?'\u2190 Start':'Weiter \u2192';
+  if(presIdx===PSLIDES.length-1){
+    document.getElementById('presNext').addEventListener('click',function once(){presIdx=PSLIDES.length-1;presGo(-(PSLIDES.length-1));document.getElementById('presNext').removeEventListener('click',once)},{once:true});
+  }
+}
+function updatePresCounter(){document.getElementById('presCounter').textContent=(presIdx+1)+' / '+PSLIDES.length}
+
+// ===== PAGE SWITCHING =====
+function hideAll(){
+  ['page-navigator','page-detail','page-result','page-presentation'].forEach(function(id){
+    document.getElementById(id).className='screen';
+  });
+}
+function showPage(page){
+  hideAll();
+  if(page==='navigator'){
+    document.getElementById('page-navigator').className='screen active';
+    document.getElementById('navBtn1').className='hub-link active';
+    document.getElementById('navBtn2').className='hub-link';
+    document.getElementById('presNav').style.display='none';
+    document.getElementById('presCounter').style.display='none';
+  }else if(page==='presentation'){
+    document.getElementById('page-presentation').className='screen active';
+    document.getElementById('navBtn2').className='hub-link active';
+    document.getElementById('navBtn1').className='hub-link';
+    document.getElementById('presNav').style.display='flex';
+    document.getElementById('presCounter').style.display='block';
+    presIdx=0;
+    document.querySelectorAll('.pres-slide').forEach(function(s,i){s.className='pres-slide'+(i===0?' active':'')});
+    updatePresCounter();
+    document.getElementById('presPrev').style.visibility='hidden';
+  }
+  window.scrollTo(0,0);
+}
+
+// ===== INIT =====
+buildNavCards();
+buildPresentation();
+document.getElementById('presNav').style.display='none';
+document.getElementById('presCounter').style.display='none';
+</script>
+</body>
+</html>
